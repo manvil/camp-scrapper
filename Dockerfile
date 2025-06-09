@@ -5,7 +5,7 @@ ARG BUNDLE_WITHOUT="development test"
 FROM ruby:${RUBY_VERSION}
 LABEL org.opencontainers.image.source=https://github.com/manvil/camp-scrapper
 
-RUN apt update -y && apt-get install -y build-essential ruby-dev libyaml-dev chromium-chromedriver
+RUN apt update -y && apt-get install -y build-essential ruby-dev libyaml-dev ruby-selenium-webdriver chromium-driver
 
 RUN groupadd -g 1010 highvid
 RUN useradd -m -u 1010 -g highvid highvid
