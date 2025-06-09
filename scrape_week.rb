@@ -12,17 +12,17 @@ module ScrapeWeek
   def self.scrape_week(driver, week_string, week_start, timeout: nil) 
     puts "Scraping week: #{week_string}"
     wait_timeout(wait_timeout: timeout)
-    wait.until { driver.find_element(xpath: "//strong[@class='my-nav-week-seeker-item']/span[contains(text(), '#{week_string}')]") }
+    wait.until { driver.find_element(xpath: "//strong[@class='#{ENV['NEXT_WEEK_SEEKER_ITEM_CLASS']}']/span[contains(text(), '#{week_string}')]") }
 
     find_open_shifts(driver, week_start).compact
   end
 
   def self.find_open_shifts(driver, week_start)
-    all_available_spans = wait.until { driver.find_elements(xpath: "//tbody/tr[@class='shiftSummaryRow']//div[@id='availableSubBody']//span[contains(text(), ' shifts nearby')]") }
+    all_available_spans = wait.until { driver.find_elements(xpath: "//tbody/tr[@class='#{ENV['SHIFT_SUMMARY_ROW_CLASS']}']//div[@id='#{ENV['AVAILABILITY_SUB_BODY_CLASS']}']//span[contains(text(), ' #{ENV['NEARBY_STRING']}')]") }
 
     shifts = []
     all_available_spans.each do |span|
-      if span.text.split(' shifts nearby').first.to_i > 0
+      if span.text.split(ENV['NEARBY_STRING']).first.to_i > 0
         puts "Found available shift: #{span.text}"
         ancestor_td = span.find_element(xpath: 'ancestor::td')
         cell_id = ancestor_td.attribute('id')

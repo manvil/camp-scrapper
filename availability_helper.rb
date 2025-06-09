@@ -19,13 +19,14 @@ module AvailabilityHelper
     # Basic validation to ensure credentials are not empty
 
     puts "\nAttempting click on the availability button."
+
     wait = Selenium::WebDriver::Wait.new(timeout: wait_timeout)
 
     # Find the username/email input field and enter the username.
     # IMPORTANT: You MUST update the selector below (e.g., 'id: 'username_or_email'')
     # to match the actual HTML ID, name, class, or CSS selector of the username input field
     # on your target website's login page. Use your browser's developer tools to inspect the page.
-    availability_modal = wait.until { driver.find_element(id: 'dvUpdateAvailabilityReminder') } # <<<--- UPDATE THIS SELECTOR
+    availability_modal = wait.until { driver.find_element(id: ENV['AVAILABILITY_MODAL_ID']) }
 
     # Find the password input field and enter the password.
     # IMPORTANT: You MUST update the selector below (e.g., 'id: 'password'')

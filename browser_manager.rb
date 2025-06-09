@@ -14,7 +14,7 @@ module BrowserManager
   # @param headless [Boolean] Whether to run the browser in headless mode (without a visible UI).
   # @return [Selenium::WebDriver::Driver] The initialized WebDriver instance.
   # @raise [ArgumentError] If an unsupported browser type is provided.
-  def self.get_driver(browser_type, headless: false)
+  def self.get_driver(browser_type, headless: true)
     # Configure browser-specific options based on the browser type.
     options = case browser_type
               when :chrome
