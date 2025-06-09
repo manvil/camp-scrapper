@@ -18,7 +18,8 @@ module ScrapeWeek
   end
 
   def self.find_open_shifts(driver, week_start)
-    all_available_spans = wait.until { driver.find_elements(xpath: "//tbody/tr[@class='#{ENV['SHIFT_SUMMARY_ROW_CLASS']}']//div[@id='#{ENV['AVAILABILITY_SUB_BODY_CLASS']}']//span[contains(text(), ' #{ENV['NEARBY_STRING']}')]") }
+    puts "Finding all available shifts..."
+    all_available_spans = wait.until { driver.find_elements(xpath: "//tbody/tr[@class='#{ENV['SHIFT_SUMMARY_ROW_CLASS']}']//div[@id='#{ENV['AVAILABILITY_SUB_BODY_CLASS']}']//span[contains(text(), '#{ENV['NEARBY_STRING']}')]") }
 
     shifts = []
     all_available_spans.each do |span|
