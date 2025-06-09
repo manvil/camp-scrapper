@@ -1,0 +1,10 @@
+fileignoreconfig:
+- filename: config.rb
+  checksum: 4e9480e4be283d4e6831a6ee8ecb9fd24f5b7f2f94e3444c2b12b65b53dfdad4
+- filename: scrapper.rb
+  checksum: f47201776de8c36e61d209002a39869c6e8d17b567574abcbf971e12af713518
+- filename: login_helper.rb
+  checksum: dbe9857cb938c63a374b42f81f017e3d4acd9f699024aa0493591a667feb1795
+- filename: availability_helper.rb
+  checksum: 2d67a5b0dde36cd2f29816e85d5069fabeeb8b24cf12b4f0f356e10fb64598c1
+version: "1.0"
