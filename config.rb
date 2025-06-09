@@ -24,4 +24,4 @@ DEFAULT_WAIT_TIMEOUT = 10 # seconds
 
 # --- Other Settings (Optional) ---
 # Example: Whether to run the browser in headless mode (no visible browser window)
-RUN_HEADLESS = false
+RUN_HEADLESS = true
