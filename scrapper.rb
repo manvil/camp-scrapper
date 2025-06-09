@@ -42,7 +42,8 @@ def scrape_website
     WeekGenerator.get_weeks.each do |week_string, week_start|
       info = ScrapeWeek.scrape_week(driver, week_string, week_start, timeout: DEFAULT_WAIT_TIMEOUT)
       # puts "Scraped week: #{info}" if info.present?
-      info.each { |item| telegram_notifier.send_message("Shifts found on #{item[:day]} (#{item[:time_of_day]})") }
+      info.each { |item| telegram_notifier.send_message("Shifts found on #{item[:day]} (#{item[:time_of_day]})(#{item[:service_detail].join(', ')})") }
+
       NextWeek.click(driver, timeout: DEFAULT_WAIT_TIMEOUT)
     end
 

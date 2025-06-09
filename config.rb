@@ -24,4 +24,4 @@ DEFAULT_WAIT_TIMEOUT = 10 # seconds
 
 # --- Other Settings (Optional) ---
 # Example: Whether to run the browser in headless mode (no visible browser window)
-RUN_HEADLESS = true
+RUN_HEADLESS = ENV.fetch('RUN_HEADLESS', 'true') == 'true' # Convert string to boolean

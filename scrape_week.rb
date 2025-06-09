@@ -9,6 +9,10 @@ module ScrapeWeek
     @wait ||= Selenium::WebDriver::Wait.new(timeout: wait_timeout)
   end
 
+  def self.quick_wait
+    @quick_wait ||= Selenium::WebDriver::Wait.new(timeout: 2)
+  end
+
   def self.scrape_week(driver, week_string, week_start, timeout: nil) 
     puts "Scraping week: #{week_string}"
     wait_timeout(wait_timeout: timeout)
@@ -23,6 +27,7 @@ module ScrapeWeek
 
     shifts = []
     all_available_spans.each do |span|
+      sleep 2
       if span.text.split(ENV['NEARBY_STRING']).first.to_i > 0
         puts "Found available shift: #{span.text}"
         ancestor_td = span.find_element(xpath: 'ancestor::td')
@@ -32,7 +37,17 @@ module ScrapeWeek
         time_of_day = cell_number <= 5 ? 'morning' : 'afternoon'
         nth_index = cell_number <= 5 ? cell_number - 1 : cell_number - 6
         day = week_start + nth_index.days
-        shifts << { day:, time_of_day:, cell_id:  }
+        span.click
+        sleep 2
+        service_detail = wait.until { driver.find_elements(xpath: "//table[@class='#{ENV['SERVICE_TABLE_CLASS']}']//tr[1]//td[2]") }
+        service_detail = service_detail.map(&:text).reject(&:empty?)
+        puts "Service Details: #{service_detail} "
+        shifts << { day:, time_of_day:, cell_id:, service_detail:  }
+        sleep 1
+        begin
+          quick_wait.until { driver.find_element(xpath: "//button[text()='Go Back']").click }
+        rescue Selenium::WebDriver::Error::TimeoutError, Selenium::WebDriver::Error::NoSuchElementError
+        end
       end
     end
     shifts
